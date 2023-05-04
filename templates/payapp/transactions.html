@@ -1,0 +1,39 @@
+
+{% extends 'payapp/base.html' %}
+
+{% block title %}
+    Make Payment
+{% endblock %}
+
+{% block content %}
+    <h1>Make Payment</h1>
+    {% if user.is_authenticated %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Direction</th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Display balance for user and all balances for admin -->
+                {% for transaction in transactions %}
+                    <tr>
+                        {% if user.is_superuser %}
+                            <td>{{ transaction.user }}</td>
+                        {% endif %}
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.direction }}</td>
+                        <td>{{ transaction.other_user }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            Please login to access this page
+        </p>
+    {% endif %}
+
+{% endblock %}

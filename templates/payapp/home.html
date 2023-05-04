@@ -1,0 +1,36 @@
+
+{% extends 'payapp/base.html' %}
+
+{% block title %}
+    Payment Homepage
+{% endblock %}
+
+{% block content %}
+    <h1>This is the Payment Application Home Page</h1>
+    {% if user.is_authenticated %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>User</th>
+                <th>Currency</th>
+                <th>Balance</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Display balance for user and all balances for admin -->
+            {% for balance in balances %}
+                <tr>
+                    <td>{{ balance.user }}</td>
+                    <td>{{ balance.currency }}</td>
+                    <td>{{ balance.balance }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            Please login to access homepage
+        </p>
+    {% endif %}
+
+{% endblock %}

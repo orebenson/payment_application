@@ -1,0 +1,50 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">WebApps</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="False" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            {% if user.is_authenticated %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/payapp/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/payapp/transactions">Transactions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/payapp/requests">Requests</a>
+                </li>
+
+                {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register/admin">Register Admin</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/payapp/makepayment">Transfer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/payapp/request">Request</a>
+                    </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+                </li>
+
+            {% else %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+
+            {% endif %}
+        </ul>
+    </div>
+</nav>
