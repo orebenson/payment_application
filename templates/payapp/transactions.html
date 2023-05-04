@@ -4,7 +4,7 @@
 {% block title %}
     Transactions
 {% endblock %}
-
+<!-- Display transactions for user and all transactions for admin -->
 {% block content %}
     {% if user.is_authenticated %}
         <h1>Transactions</h1>
@@ -21,7 +21,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Display balance for user and all balances for admin -->
                 {% for transaction in transactions %}
                     <tr>
                         {% if user.is_superuser %}

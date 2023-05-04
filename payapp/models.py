@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Cash(models.Model):
+class Cash(models.Model): # Model that stores all user balances and chosen currencies
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     currency = models.CharField(max_length=5)
     balance = models.IntegerField()
@@ -14,7 +14,7 @@ class Cash(models.Model):
         details += f'Balance : {self.balance}\n'
         return details
 
-class CashTransfers(models.Model):
+class CashTransfers(models.Model): # Model that stores all user transfers
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='transfers_users')
     other_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='transfers_other_users')
     amount = models.IntegerField()
@@ -29,7 +29,7 @@ class CashTransfers(models.Model):
         return details
 
 
-class CashRequests(models.Model):
+class CashRequests(models.Model): # Model that stores all user cash requests
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='requests_users')
     amount = models.IntegerField()
     other_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='requests_other_users')

@@ -7,7 +7,7 @@ from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.models import User
 
 @requires_csrf_token
-def register_admin(request):
+def register_admin(request): # Register a new admin account with relevant details
     form = RegisterAdminForm()
     if not request.user.is_superuser:
         return redirect('login')
@@ -21,7 +21,7 @@ def register_admin(request):
     return render(request, 'register/registeradmin.html', {'register_form': form})
 
 @requires_csrf_token
-def register_user(request):
+def register_user(request): # Register a new user with relevant details
     form = RegisterUserForm()
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
@@ -37,7 +37,7 @@ def register_user(request):
     return render(request, 'register/register.html', {'register_form': form})
 
 @requires_csrf_token
-def login_user(request):
+def login_user(request): # Login a user/admin, if user exists
     form = AuthenticationForm()
     if request.method == 'POST':
         print(request.POST)
@@ -52,7 +52,7 @@ def login_user(request):
             messages.error(request, 'Invalid login')
     return render(request, 'register/login.html', {'form': form})
 
-def logout_user(request):
+def logout_user(request): # Logout a user/admin
     logout(request)
     messages.success(request, 'Logout successful')
     return redirect('login')

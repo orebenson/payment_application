@@ -4,7 +4,7 @@
 {% block title %}
     Requests
 {% endblock %}
-
+<!-- Display requests for user and all requests for admin -->
 {% block content %}
     {% if user.is_authenticated %}
         <h1>Requests</h1>
@@ -19,7 +19,6 @@
                 </tr>
             </thead>
             <tbody>
-            <!-- Display requests for user and all requests for admin -->
             {% for request in requests %}
                 <tr>
                     {% if user.is_superuser %}
@@ -28,6 +27,7 @@
                     <td>{{ request.amount }}</td>
                     <td>{{ request.other_user }}</td>
                     {% if not user.is_superuser %}
+                        <!-- accept / reject a request, sending request id to route -->
                         <td><a href="reject/{{ request.id }}">reject</a></td>
                         <td><a href="accept/{{ request.id }}">accept</a></td>
                     {% endif %}

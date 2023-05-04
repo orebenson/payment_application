@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from payapp.models import Cash
 
-class RegisterUserForm(UserCreationForm):
+class RegisterUserForm(UserCreationForm): # Form for registering a user, including a chosen currency
     CURRENCIES = (
         ("1", "USD"),
         ("2", "GBP"),
@@ -24,12 +24,11 @@ class RegisterUserForm(UserCreationForm):
         Cash.objects.create(user=instance, currency=currency, balance=self.balance)
         return instance
 
-class RegisterAdminForm(UserCreationForm):
+class RegisterAdminForm(UserCreationForm): # Form for registering a new admin
     email = forms.EmailField()
 
     class Meta:
         model = User
-        # model.is_superuser = True
         fields = ["username", "email", "password1", "password2", "is_superuser"]
 
     def save(self, *args, **kwargs):
