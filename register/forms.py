@@ -11,7 +11,7 @@ class RegisterUserForm(UserCreationForm):
     )
     email = forms.EmailField()
     currency = forms.ChoiceField(choices=CURRENCIES)
-    balance = 1000 #implement currency conversion later, pounds for now
+    balance = forms.IntegerField()
 
     class Meta:
         model = User

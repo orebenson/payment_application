@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'payapp/base.html' %}
+{% load crispy_forms_tags %}
 
-</body>
-</html>
+{% block title %}
+    Request
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Make Payment Request</h1>
+        <form method="post" class="form-group">
+            {% csrf_token %}
+            {{ request_form|crispy }}
+            <button type="submit" class="btn btn-success">Send</button>
+        </form>
+    {% else %}
+        <p>
+            Please login to access this page
+        </p>
+    {% endif %}
+{% endblock %}

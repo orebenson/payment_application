@@ -22,11 +22,14 @@ def register_admin(request):
 
 @requires_csrf_token
 def register_user(request):
-    # add a converstion rate request to the restapi
     form = RegisterUserForm()
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
         if form.is_valid():
+            # src_curr = form.cleaned_data['currency']
+            # Get conversion rate from RestAPI
+            # conversion = get_conversion('GBP', src_curr)
+            form.balance = 1000 #* conversion
             form.save()
             messages.success(request, 'Account created')
             return redirect('login')

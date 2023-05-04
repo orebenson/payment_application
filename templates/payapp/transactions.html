@@ -2,18 +2,22 @@
 {% extends 'payapp/base.html' %}
 
 {% block title %}
-    Make Payment
+    Transactions
 {% endblock %}
 
 {% block content %}
-    <h1>Make Payment</h1>
     {% if user.is_authenticated %}
+        <h1>Transactions</h1>
         <table class="table">
             <thead>
                 <tr>
+                    {% if user.is_superuser %}
+                        <th>User</th>
+                    {% endif %}
                     <th>Amount</th>
                     <th>Direction</th>
                     <th>User</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +30,7 @@
                         <td>{{ transaction.amount }}</td>
                         <td>{{ transaction.direction }}</td>
                         <td>{{ transaction.other_user }}</td>
+                        <td>{{ transaction.time }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

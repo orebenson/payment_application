@@ -6,21 +6,31 @@
 {% endblock %}
 
 {% block content %}
-    <h1>This is the Payment Application Home Page</h1>
     {% if user.is_authenticated %}
+        <h1>Home Page</h1>
+        {% if user.is_superuser %}
+            <h2>Balances</h2>
+        {% else %}
+            <h2>Balance</h2>
+        {% endif %}
+
         <table class="table">
             <thead>
-            <tr>
-                <th>User</th>
-                <th>Currency</th>
-                <th>Balance</th>
-            </tr>
+                <tr>
+                    {% if user.is_superuser %}
+                        <th>User</th>
+                    {% endif %}
+                    <th>Currency</th>
+                    <th>Balance</th>
+                </tr>
             </thead>
             <tbody>
             <!-- Display balance for user and all balances for admin -->
             {% for balance in balances %}
                 <tr>
-                    <td>{{ balance.user }}</td>
+                    {% if user.is_superuser %}
+                        <td>{{ balance.user }}</td>
+                    {% endif %}
                     <td>{{ balance.currency }}</td>
                     <td>{{ balance.balance }}</td>
                 </tr>
@@ -29,7 +39,7 @@
         </table>
     {% else %}
         <p>
-            Please login to access homepage
+            Please login to access this page
         </p>
     {% endif %}
 

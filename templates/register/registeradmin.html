@@ -2,14 +2,26 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Create an Admin Account
+    Register Admin
 {% endblock %}
 
 {% block content %}
-    <h1>Register</h1>
-    <form method="post" class="form-group">
-        {% csrf_token %}
-        {{ register_form|crispy }}
-        <button type="submit" class="btn btn-success">Register</button>
-    </form>
+    {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+            <h1>Register Admin</h1>
+            <form method="post" class="form-group">
+                {% csrf_token %}
+                {{ register_form|crispy }}
+                <button type="submit" class="btn btn-success">Register</button>
+            </form>
+        {% else %}
+            <p>
+                Admin access only
+            </p>
+        {% endif %}
+    {% else %}
+        <p>
+            Please login to access this page
+        </p>
+    {% endif %}
 {% endblock %}

@@ -10,7 +10,7 @@ class Cash(models.Model):
     def __str__(self):
         details = ''
         details += f'User : {self.user}\n'
-        details += f'Currency : {self.get_currency_display()}\n'
+        details += f'Currency : {self.currency}\n'
         details += f'Balance : {self.balance}\n'
         return details
 
@@ -18,6 +18,7 @@ class CashTransfers(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='transfers_users')
     other_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='transfers_other_users')
     amount = models.IntegerField()
+    time = models.DateTimeField(auto_now=True)
 
     class Direction(models.TextChoices):
         RECEIVED = 'Received From'
@@ -37,10 +38,9 @@ class CashRequests(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='requests_users')
     amount = models.IntegerField()
     other_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='requests_other_users')
-
     def __str__(self):
         details = ''
-        details += f'Amount : {self.user}\n'
+        details += f'Amount : {self.amount}\n'
         details += f'Requested by : '
         details += f'User : {self.other_user}\n'
         return details

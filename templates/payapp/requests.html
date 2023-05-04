@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+{% extends 'payapp/base.html' %}
+
+{% block title %}
+    Requests
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Requests</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    {% if user.is_superuser %}
+                        <th>User</th>
+                    {% endif %}
+                    <th>Amount</th>
+                    <th>Requested From</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- Display requests for user and all requests for admin -->
+            {% for request in requests %}
+                <tr>
+                    {% if user.is_superuser %}
+                        <td>{{ request.user }}</td>
+                    {% endif %}
+                    <td>{{ request.amount }}</td>
+                    <td>{{ request.other_user }}</td>
+                    {% if not user.is_superuser %}
+                        <td><a href="reject/{{ request.id }}">reject</a></td>
+                        <td><a href="accept/{{ request.id }}">accept</a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            Please login to access this page
+        </p>
+    {% endif %}
+
+{% endblock %}
