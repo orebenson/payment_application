@@ -28,8 +28,8 @@
                     <td>{{ request.other_user }}</td>
                     {% if not user.is_superuser %}
                         <!-- accept / reject a request, sending request id to route -->
-                        <td><a href="reject/{{ request.id }}">reject</a></td>
-                        <td><a href="accept/{{ request.id }}">accept</a></td>
+                        <td><a class="text-decoration-none" href="reject/{{ request.id }}">Reject</a></td>
+                        <td><a class="text-decoration-none" href="accept/{{ request.id }}">Accept</a></td>
                     {% endif %}
                 </tr>
             {% endfor %}

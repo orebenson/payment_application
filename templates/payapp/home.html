@@ -2,13 +2,13 @@
 {% extends 'payapp/base.html' %}
 
 {% block title %}
-    Payment Homepage
+    Homepage
 {% endblock %}
 
 {% block content %}
     {% if user.is_authenticated %}
         <!-- Display balance for user and all balances for admin -->
-        <h1>Home Page</h1>
+        <h1>Home</h1>
         {% if user.is_superuser %}
             <h2>Balances</h2>
         {% else %}

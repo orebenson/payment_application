@@ -7,7 +7,7 @@
 <!-- Make payments to another user -->
 {% block content %}
     {% if user.is_authenticated %}
-        <h1>Make Payment</h1>
+        <h1>Transfer</h1>
         <form method="post" class="form-group">
             {% csrf_token %}
             {{ payment_form|crispy }}

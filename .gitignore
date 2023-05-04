@@ -1,6 +1,5 @@
 .idea
 venv
-.venv
 db.webapps
 webapps2023.iml
 localhost.*
