@@ -20,7 +20,7 @@ def transactions(request):
     # if user is admin, view all transactions from every user
     transactions = []
     if request.user.is_superuser:
-        transactions = list(CashTransfers.objects.all())
+        transactions = list(CashTransfers.objects.filter(direction='Sent to'))
     else:
         transactions = list(CashTransfers.objects.filter(user=request.user))
     return render(request, "payapp/transactions.html", {'transactions': transactions})

@@ -19,12 +19,7 @@ class CashTransfers(models.Model):
     other_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='transfers_other_users')
     amount = models.IntegerField()
     time = models.DateTimeField(auto_now=True)
-
-    class Direction(models.TextChoices):
-        RECEIVED = 'Received From'
-        SENT = 'Sent To'
-
-    direction = models.CharField(max_length=20)
+    direction = models.CharField(max_length=15)
 
     def __str__(self):
         details = ''
