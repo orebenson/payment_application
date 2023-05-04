@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from .forms import RegisterUserForm, RegisterAdminForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+
 from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.models import User
 
@@ -26,10 +27,6 @@ def register_user(request): # Register a new user with relevant details
     if request.method == 'POST':
         form = RegisterUserForm(request.POST)
         if form.is_valid():
-            # src_curr = form.cleaned_data['currency']
-            # Get conversion rate from RestAPI
-            # conversion = get_conversion('GBP', src_curr)
-            form.balance = 1000 #* conversion
             form.save()
             messages.success(request, 'Account created')
             return redirect('login')

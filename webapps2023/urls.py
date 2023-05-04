@@ -11,5 +11,7 @@ urlpatterns = [
     path('payapp/', include('payapp.urls')),
     path('register/', include('register.urls')),
     path('login', reg_views.login_user, name='login'),
-    path('logout', reg_views.logout_user, name='logout')
+    path('logout', reg_views.logout_user, name='logout'),
+    path('api/', include('api.urls')),
+    path('api-auth/', include('rest_framework.urls'))
 ]

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'payapp.apps.PayappConfig',
     'register.apps.RegisterConfig',
+    'api.apps.ApiConfig',
     'sqlite3',
     'django_extensions',
     'rest_framework'

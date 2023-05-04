@@ -3,6 +3,7 @@ from .forms import MakePaymentForm, MakePaymentRequestForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Cash, CashRequests, CashTransfers
+from common.convert import get_conversion
 from django.db import transaction
 from django.views.decorators.csrf import requires_csrf_token
 
@@ -40,9 +41,8 @@ def makepayment(request): # Page for making a direct payment to a user
                     dst_curr = dst_cash.currency
 
                     # Get conversion rate from RestAPI
-                    # conversion = get_conversion(src_curr, dst_curr)
 
-                    dst_amount = amount #* conversion
+                    dst_amount = get_conversion(src_curr, dst_curr, amount)
 
                     with transaction.atomic(): # Make transaction using atomic to remove amount from sender and add to receiver in Cash models
                         src_cash.balance = src_cash.balance - amount
@@ -87,9 +87,8 @@ def accept(request, id): # Accept a request from a user, and carry out transacti
         dst_curr = dst_cash.currency
 
         # Get conversion rate from RestAPI
-        # conversion = get_conversion(src_curr, dst_curr)
 
-        dst_amount = amount #* conversion
+        dst_amount = get_conversion(src_curr, dst_curr, amount)
 
         with transaction.atomic(): # Make transaction using atomic to remove amount from sender and add to receiver in Cash models
             src_cash.balance = src_cash.balance - amount
@@ -133,9 +132,8 @@ def request(request): # Make a transaction request from a user
                 dst_curr = dst_cash.currency
 
                 # Get conversion rate from RestAPI
-                # conversion = get_conversion(src_curr, dst_curr)
 
-                dst_amount = amount #* conversion
+                dst_amount = get_conversion(src_curr, dst_curr, amount)
 
                 # Add request to list of requests for destination user
                 dst_requests = CashRequests(user=dst_user, amount=dst_amount, other_user=src_user)
