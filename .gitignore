@@ -1,6 +1,13 @@
 .idea
 venv
+.venv
 db.webapps
 webapps2023.iml
 localhost.*
 Report.*
+# Django 
+*.log
+*.pot
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
